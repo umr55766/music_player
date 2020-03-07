@@ -1,3 +1,6 @@
 .idea
 __pycache__
 project/server/dev.db
+htmlcov
+project/client/static/songs
+.env
