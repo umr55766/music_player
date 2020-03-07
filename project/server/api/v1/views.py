@@ -1,6 +1,7 @@
 from flask import Blueprint, request
 from flask.views import MethodView
 from marshmallow import ValidationError
+from werkzeug.utils import redirect
 
 from project.server import db
 from project.server.api.v1.schemas import SongSchema
@@ -29,7 +30,7 @@ class SongAPI(MethodView):
         db.session.add(song)
         db.session.commit()
 
-        return self.schema.dump(song), 201
+        return redirect("http://localhost:5000")
 
     def delete(self, song_id):
         result = Song.query.filter_by(id=song_id).delete()
