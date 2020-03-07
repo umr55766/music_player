@@ -30,7 +30,7 @@ class SongAPI(MethodView):
         db.session.add(song)
         db.session.commit()
 
-        return redirect("http://localhost:5000")
+        return redirect("/")
 
     def delete(self, song_id):
         result = Song.query.filter_by(id=song_id).delete()
