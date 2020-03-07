@@ -2,8 +2,10 @@
 
 
 import datetime
+import os
+import uuid
 
-from flask import current_app
+from flask import current_app as app
 
 from project.server import db, bcrypt
 
@@ -21,7 +23,7 @@ class User(db.Model):
     def __init__(self, email, password, admin=False):
         self.email = email
         self.password = bcrypt.generate_password_hash(
-            password, current_app.config.get("BCRYPT_LOG_ROUNDS")
+            password, app.config.get("BCRYPT_LOG_ROUNDS")
         ).decode("utf-8")
         self.registered_on = datetime.datetime.now()
         self.admin = admin
@@ -40,3 +42,32 @@ class User(db.Model):
 
     def __repr__(self):
         return "<User {0}>".format(self.email)
+
+
+class Song(db.Model):
+
+    __tablename__ = "songs"
+
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    title = db.Column(db.String(255), nullable=False)
+    artist = db.Column(db.String(255), nullable=False)
+    album = db.Column(db.String(255), nullable=False)
+    song_url = db.Column(db.String(255), nullable=False)
+
+    # artist_id = Column(Integer, ForeignKey(Artist.id), primary_key=True)
+    # artist = relationship('Artist', foreign_keys='Song.artist_id')
+    #
+    # album_id = Column(Integer, ForeignKey(Album.id), primary_key=True)
+    # album = relationship('Album', foreign_keys='Song.album_id')
+
+    def __init__(self, title, artist, album, song):
+        self.created_at = datetime.datetime.now()
+        self.title = title
+        self.artist = artist
+        self.album = album
+        self.song_url = os.path.join(app.config['UPLOAD_FOLDER'], "%s.mp3" % str(uuid.uuid4()))
+        song.save(self.song_url)
+
+    def response(self):
+        return
