@@ -66,8 +66,8 @@ class Song(db.Model):
         self.title = title
         self.artist = artist
         self.album = album
-        self.song_url = os.path.join(app.config['UPLOAD_FOLDER'], "%s.mp3" % str(uuid.uuid4()))
-        song.save(self.song_url)
+        self.song_url = "songs/%s.mp3" % str(uuid.uuid4())
+        song.save(os.path.join(app.static_folder, self.song_url))
 
     def response(self):
         return
