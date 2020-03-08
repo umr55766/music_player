@@ -44,7 +44,7 @@
             <h4></h4>
             <audio controls autoplay></audio>
           <h1>Add new</h1>
-            <form method="post" action="http://localhost:5000/songs/" enctype="multipart/form-data">
+            <form method="post" action="/songs/" enctype="multipart/form-data">
                 <label>Title</label>
                 <input name="title" type="text" class="form-control">
 
@@ -76,7 +76,7 @@
       $(document).ready(function() {
         table = $('#table').DataTable( {
           "ajax": {
-            "url": 'http://localhost:5000/songs/',
+            "url": '/songs/',
             "dataSrc": "songs"
           },
           "columns": [
@@ -90,7 +90,7 @@
             "columnDefs": [
                 {
                     "render": function ( data, type, row ) {
-                        var url = "http://localhost:5000/static/" + data;
+                        var url = "/static/" + data;
                         return "<button onclick=\"playIt('"+row.title+"', '"+url+"')\">Play</button>";
                     },
                     "targets": 4
@@ -121,7 +121,7 @@
           method: 'DELETE'
         };
 
-        fetch(`http://localhost:5000/songs/${id}/`, requestOptions)
+        fetch(`/songs/${id}/`, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .then(result => table.ajax.reload())
