@@ -1,4 +1,6 @@
-from flask import Blueprint, request
+import os
+
+from flask import Blueprint, request, current_app
 from flask.views import MethodView
 from marshmallow import ValidationError
 from werkzeug.utils import redirect
@@ -33,9 +35,15 @@ class SongAPI(MethodView):
         return redirect("/")
 
     def delete(self, song_id):
-        result = Song.query.filter_by(id=song_id).delete()
+        song = Song.query.filter_by(id=song_id).first()
+
+        if not song:
+            return 404
+
+        os.remove(os.path.join(current_app.static_folder, song.song_url))
+        db.session.delete(song)
         db.session.commit()
-        return "", 204 if result else 404
+        return "", 204
 
 
 song_view = SongAPI.as_view('song_api')
