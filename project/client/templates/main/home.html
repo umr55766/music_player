@@ -43,7 +43,7 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
           <h1>Add new</h1>
-            <form method="post" action="/songs/" enctype="multipart/form-data">
+            <form method="post" action="/songs/?redirectToHome=True" enctype="multipart/form-data">
                 <label>Title</label>
                 <input name="title" type="text" class="form-control" required>
 
@@ -56,6 +56,7 @@
                 <label>Song</label>
                 <input name="song" type="file" class="form-control" required>
 
+                <br>
                 <button class="btn btn-primary">Upload</button>
             </form>
         </div>
@@ -102,7 +103,7 @@
                 {
                     "render": function ( data, type, row ) {
                         var url = "/static/" + data;
-                        return "<button onclick=\"playIt('"+row.title+"', '"+url+"')\">Play</button>";
+                        return "<button class='btn btn-success' onclick=\"playIt('"+row.title+"', '"+url+"')\">Play</button>";
                     },
                     "targets": 4
                 },
@@ -114,13 +115,13 @@
                 },
                 {
                     "render": function ( data, type, row ) {
-                        return "<button onClick='deleteSong("+data+")'>Delete</button>";
+                        return "<button class='btn btn-danger' onClick='deleteSong("+data+")'>Delete</button>";
                     },
                     "targets": 5
                 },
                 {
                     "render": function ( data, type, row ) {
-                        return "<a href='/?title="+encodeURIComponent(row.title)+"&song_url=/static/"+encodeURIComponent(row.song_url)+"'>Share</button>";
+                        return "<a class='btn btn-info' href='/?title="+encodeURIComponent(row.title)+"&song_url=/static/"+encodeURIComponent(row.song_url)+"'>Share</button>";
                     },
                     "targets": 6
                 }

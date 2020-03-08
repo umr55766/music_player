@@ -32,7 +32,7 @@ class SongAPI(MethodView):
         db.session.add(song)
         db.session.commit()
 
-        return redirect("/")
+        return redirect("/") if request.args.get('redirectToHome') else (self.schema.dump(song), 200)
 
     def delete(self, song_id):
         song = Song.query.filter_by(id=song_id).first()
