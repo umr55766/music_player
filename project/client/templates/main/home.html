@@ -15,7 +15,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-          <h1>Songs!</h1>
+          <h1>Play List</h1>
           <table id="table" class="display" style="width:100%">
             <thead>
                 <tr>
@@ -25,6 +25,7 @@
                     <th>Artist</th>
                     <th>Play</th>
                     <th>Delete</th>
+                    <th>Share</th>
                 </tr>
             </thead>
             <tfoot>
@@ -35,32 +36,33 @@
                     <th>Artist</th>
                     <th>Play</th>
                     <th>Delete</th>
+                    <th>Share</th>
                 </tr>
             </tfoot>
           </table>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-            <h1>Play!</h1>
-            <h4></h4>
-            <audio controls autoplay></audio>
           <h1>Add new</h1>
             <form method="post" action="/songs/" enctype="multipart/form-data">
                 <label>Title</label>
-                <input name="title" type="text" class="form-control">
+                <input name="title" type="text" class="form-control" required>
 
                 <label>Album</label>
-                <input name="album" type="text" class="form-control">
+                <input name="album" type="text" class="form-control" required>
 
                 <label>Artist</label>
-                <input name="artist" type="text" class="form-control">
+                <input name="artist" type="text" class="form-control" required>
 
                 <label>Song</label>
-                <input name="song" type="file" class="form-control">
+                <input name="song" type="file" class="form-control" required>
 
                 <button class="btn btn-primary">Upload</button>
             </form>
         </div>
       </div>
+      <h1>Song</h1>
+      <h4></h4>
+      <audio style="width: 100%" controls autoplay></audio>
     </div>
 
     <!-- Optional JavaScript -->
@@ -74,6 +76,14 @@
       var table;
 
       $(document).ready(function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const song_url = decodeURIComponent(urlParams.get('song_url'));
+        const title = decodeURIComponent(urlParams.get('title'));
+
+        if (song_url != "null" && title != "null") {
+            playIt(title, song_url);
+        }
+
         table = $('#table').DataTable( {
           "ajax": {
             "url": '/songs/',
@@ -85,6 +95,7 @@
                 { "data": "album" },
                 { "data": "artist" },
                 { "data": "song_url" },
+                { "data": "id" },
                 { "data": "id" }
             ],
             "columnDefs": [
@@ -106,6 +117,12 @@
                         return "<button onClick='deleteSong("+data+")'>Delete</button>";
                     },
                     "targets": 5
+                },
+                {
+                    "render": function ( data, type, row ) {
+                        return "<a href='/?title="+encodeURIComponent(row.title)+"&song_url=/static/"+encodeURIComponent(row.song_url)+"'>Share</button>";
+                    },
+                    "targets": 6
                 }
             ]
         });
