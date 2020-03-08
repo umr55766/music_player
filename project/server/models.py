@@ -43,6 +43,22 @@ class User(db.Model):
     def __repr__(self):
         return "<User {0}>".format(self.email)
 
+#
+# class Artist(db.Model):
+#
+#     __tablename__ = "artists"
+#
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     name = db.Column(db.String(255), nullable=False)
+#
+#
+# class Album(db.Model):
+#
+#     __tablename__ = "albums"
+#
+#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     name = db.Column(db.String(255), nullable=False)
+
 
 class Song(db.Model):
 
@@ -61,13 +77,15 @@ class Song(db.Model):
     # album_id = Column(Integer, ForeignKey(Album.id), primary_key=True)
     # album = relationship('Album', foreign_keys='Song.album_id')
 
-    def __init__(self, title, artist, album, song):
+    def __init__(self, title, artist, album, song=None, song_url=None):
         self.created_at = datetime.datetime.now()
         self.title = title
         self.artist = artist
         self.album = album
-        self.song_url = "songs/%s.mp3" % str(uuid.uuid4())
-        song.save(os.path.join(app.static_folder, self.song_url))
+        self.song_url = "songs/%s.mp3" % str(uuid.uuid4()) if song else song_url
+
+        if song:
+            song.save(os.path.join(app.static_folder, self.song_url))
 
     def response(self):
         return

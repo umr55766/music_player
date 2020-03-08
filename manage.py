@@ -8,7 +8,7 @@ import coverage
 from flask.cli import FlaskGroup
 
 from project.server import create_app, db
-from project.server.models import User
+from project.server.models import User, Song
 import subprocess
 import sys
 
@@ -51,7 +51,8 @@ def create_admin():
 @cli.command()
 def create_data():
     """Creates sample data."""
-    pass
+    db.session.add(Song(title="Horse", artist="Unknown", album="Unknown", song_url="songs/horse.mp3"))
+    db.session.commit()
 
 
 @cli.command()
