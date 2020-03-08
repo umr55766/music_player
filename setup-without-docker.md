@@ -4,7 +4,7 @@ Use this guide if you do NOT want to use Docker in your project.
 
 ## Getting Started
 
-Create and activate a virtual environment, and then install the requirements.
+Create and activate a virtual environment (**with Python 3**), and then install the requirements.
 
 ### Set Environment Variables
 
@@ -26,9 +26,6 @@ $ export APP_SETTINGS=project.server.config.DevelopmentConfig
 
 ```sh
 $ python manage.py create-db
-$ python manage.py db init
-$ python manage.py db migrate
-$ python manage.py create-admin
 $ python manage.py create-data
 ```
 
