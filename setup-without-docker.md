@@ -1,7 +1,5 @@
 # Setup
 
-Use this guide if you do NOT want to use Docker in your project.
-
 ## Getting Started
 
 Create and activate a virtual environment (**with Python 3**), and then install the requirements.
