@@ -1,20 +1,12 @@
 # Music Player
 
-## Quick Start
+### API Structure
 
-Install Cookiecutter globally:
+GET `/songs/` - List
 
-```sh
-$ pip install cookiecutter
-```
+POST `/songs/` - Create
 
-Generate the boilerplate:
+DELETE `/songs/<id>/` - Delete
 
-```sh
-$ cookiecutter https://github.com/testdrivenio/cookiecutter-flask-skeleton.git
-```
 
-Review the set up guides to configure the app:
-
-1. [setup-with-docker.md](setup-with-docker.md)
-1. [setup-without-docker.md](setup-without-docker.md)
+[Follow these steps to install and run](setup-without-docker.md)
