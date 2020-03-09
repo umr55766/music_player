@@ -8,5 +8,6 @@ POST `/songs/` - Create
 
 DELETE `/songs/<id>/` - Delete
 
+![Sample Image](sample.png "Sample")
 
 [Follow these steps to install and run](setup-without-docker.md)
