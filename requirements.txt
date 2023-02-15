@@ -10,5 +10,5 @@ Flask-SQLAlchemy==2.4.1
 Flask-Testing==0.7.1
 Flask-WTF==0.14.3
 psycopg2-binary==2.8.4
-Werkzeug==0.16.1
+Werkzeug==2.2.3
 marshmallow==3.5.1
